@@ -1,0 +1,245 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #14110e;
+  --surface: #1e1914;
+  --surface-2: #2a221b;
+  --border: #3d3228;
+  --text: #f5efe6;
+  --muted: #a89882;
+  --accent: #d4843a;
+  --accent-hover: #e89a4f;
+  --canvas-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+#app {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.brand h1 {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.brand p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 0.1rem;
+}
+
+.toolbar {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.btn {
+  appearance: none;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, opacity 0.15s;
+}
+
+.btn:hover:not(:disabled) {
+  background: #352b22;
+  border-color: #524336;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #1a1208;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.workspace {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(212, 132, 58, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 100%, rgba(90, 60, 30, 0.12) 0%, transparent 50%),
+    var(--bg);
+}
+
+.drop-zone {
+  position: relative;
+  width: min(100%, 1200px);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.drop-zone.drag-over {
+  border-color: var(--accent);
+  background: rgba(212, 132, 58, 0.06);
+}
+
+.drop-zone.has-image {
+  border-style: solid;
+  border-color: transparent;
+  background: transparent;
+  pointer-events: none;
+}
+
+.drop-zone.has-image #canvas {
+  pointer-events: auto;
+}
+
+.drop-content {
+  text-align: center;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.drop-zone.has-image .drop-content {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.palette-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  background: conic-gradient(
+    #e74c3c 0deg,
+    #e67e22 60deg,
+    #f1c40f 120deg,
+    #2ecc71 180deg,
+    #3498db 240deg,
+    #9b59b6 300deg,
+    #e74c3c 360deg
+  );
+  box-shadow: inset 0 0 0 6px var(--surface-2), 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.drop-content h2 {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 0.35rem;
+}
+
+.drop-content p {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+#canvas {
+  position: absolute;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: var(--canvas-shadow);
+  cursor: crosshair;
+  opacity: 0;
+  transition: opacity 0.4s;
+  touch-action: none;
+}
+
+.drop-zone.has-image #canvas {
+  opacity: 1;
+}
+
+.controls {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0.85rem 1.5rem;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 180px;
+}
+
+.control label {
+  font-size: 0.8rem;
+  color: var(--muted);
+  white-space: nowrap;
+  min-width: 90px;
+}
+
+.control input[type='range'] {
+  flex: 1;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .controls {
+    gap: 0.75rem;
+  }
+
+  .control {
+    width: 100%;
+  }
+}

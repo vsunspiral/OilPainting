@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Oil Paint Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <header class="header">
+        <div class="brand">
+          <h1>Oil Paint Studio</h1>
+          <p>Click and drag to smear wet oil paint</p>
+        </div>
+        <div class="toolbar">
+          <label class="btn btn-primary">
+            <input type="file" id="file-input" accept="image/*" hidden />
+            Open Image
+          </label>
+          <button class="btn" id="reset-btn" disabled>Reset</button>
+          <button class="btn" id="download-btn" disabled>Save</button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <div class="drop-zone" id="drop-zone">
+          <div class="drop-content">
+            <div class="palette-icon" aria-hidden="true"></div>
+            <h2>Drop a photo here</h2>
+            <p>Or click to browse — then smear it like fresh oil paint</p>
+          </div>
+          <canvas id="canvas"></canvas>
+        </div>
+      </main>
+
+      <aside class="controls" id="controls" hidden>
+        <div class="control">
+          <label for="brush-size">Brush size</label>
+          <input type="range" id="brush-size" min="0.003" max="0.03" step="0.001" value="0.008" />
+        </div>
+        <div class="control">
+          <label for="smear-strength">Smear strength</label>
+          <input type="range" id="smear-strength" min="0.3" max="1.5" step="0.05" value="0.85" />
+        </div>
+        <div class="control">
+          <label for="impasto">Impasto depth</label>
+          <input type="range" id="impasto" min="0" max="1.5" step="0.05" value="0.5" />
+        </div>
+      </aside>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
